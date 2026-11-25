@@ -1,0 +1,10 @@
+# Unggahan pengguna (foto profil & gambar karya) — jangan ikut di-commit.
+# Folder tetap ada berkat .gitkeep.
+/assets/uploads/*
+!/assets/uploads/.gitkeep
+
+# Berkas sistem / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+*.log

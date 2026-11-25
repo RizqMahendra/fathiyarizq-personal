@@ -1,0 +1,225 @@
+/* ==========================================================================
+   Portfolio — UI mengikuti aturan "no-slop-ui"
+   (github.com/LeoStehlik/no-slop-ui):
+   permukaan solid, border 1px, radius 6–8px, tanpa gradient/glow/glassmorphism,
+   tanpa animasi transform, tipografi dan palet tunggal yang tenang.
+   Palet: Cloud Canvas (light) — dipakai satu warna primer saja.
+   ========================================================================== */
+
+:root {
+  --bg:        #fafafa;
+  --surface:   #ffffff;
+  --surface-2: #f4f4f5;
+  --line:      #e4e4e7;
+  --line-2:    #d4d4d8;
+  --text:      #0f172a;
+  --muted:     #52525b;
+  --primary:   #1d4ed8;
+  --primary-fg:#ffffff;
+  --danger:    #b91c1c;
+  --success:   #15803d;
+  --radius:    8px;
+  --shadow:    0 1px 2px rgba(15, 23, 42, .06), 0 1px 3px rgba(15, 23, 42, .04);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Helvetica Neue", "Noto Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3 { line-height: 1.25; }
+
+.container { width: min(1080px, 92%); margin-inline: auto; }
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.navbar .container { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { color: var(--text); font-weight: 600; font-size: 1rem; }
+.nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.nav-links a {
+  display: block; padding: 8px 12px; border-radius: 6px;
+  color: var(--muted); font-size: .92rem; font-weight: 500;
+}
+.nav-links a:hover { background: var(--surface-2); color: var(--text); text-decoration: none; }
+.nav-links a.nav-active { color: var(--primary); background: #eff6ff; font-weight: 600; }
+.nav-links a.nav-active:hover { background: #e0edff; color: var(--primary); }
+.nav-toggle {
+  display: none; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 6px; color: var(--text); font-size: 1.1rem; cursor: pointer; padding: 4px 10px;
+}
+
+/* ===== BUTTONS (6–8px radius, solid) ===== */
+.btn {
+  display: inline-block; padding: 9px 16px; border-radius: 8px; border: 1px solid transparent;
+  font: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; text-align: center;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.btn-primary { background: var(--primary); color: var(--primary-fg); }
+.btn-primary:hover { background: #1e40af; text-decoration: none; }
+.btn-ghost { background: var(--surface); color: var(--text); border-color: var(--line-2); }
+.btn-ghost:hover { background: var(--surface-2); text-decoration: none; }
+.btn-danger { background: var(--surface); color: var(--danger); border-color: #fca5a5; }
+.btn-danger:hover { background: #fef2f2; text-decoration: none; }
+.btn-sm { padding: 6px 12px; font-size: .84rem; border-radius: 6px; }
+
+/* ===== PAGE HEADER (profil) ===== */
+.page-head { border-bottom: 1px solid var(--line); background: var(--surface); }
+.page-head .container {
+  display: grid; grid-template-columns: 1fr 180px; gap: 32px; align-items: center;
+  padding: 44px 0;
+}
+.page-head h1 { font-size: 2rem; margin: 0 0 6px; }
+.page-head .headline { color: var(--primary); font-weight: 600; margin: 0 0 14px; font-size: 1.02rem; }
+.page-head .ringkasan { color: var(--muted); max-width: 64ch; margin: 0 0 18px; }
+.headline-meta { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 22px; color: var(--muted); font-size: .9rem; }
+.cta { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.avatar {
+  width: 180px; height: 180px; border-radius: 10px; object-fit: cover; margin-inline: auto;
+  border: 1px solid var(--line); background: var(--surface-2);
+}
+.avatar-fallback {
+  width: 180px; height: 180px; border-radius: 10px; margin-inline: auto;
+  display: grid; place-items: center; font-size: 3rem; font-weight: 600;
+  background: var(--surface-2); color: var(--muted); border: 1px solid var(--line);
+}
+
+/* ===== SECTIONS ===== */
+.section { padding: 56px 0; }
+.section + .section { border-top: 1px solid var(--line); }
+.section-title { margin-bottom: 28px; }
+.section-title h2 { font-size: 1.4rem; margin: 0 0 4px; }
+.section-title p { color: var(--muted); margin: 0; font-size: .95rem; }
+
+/* ===== KEAHLIAN (list ringkas, bukan kartu bertumpuk) ===== */
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+.skill-card { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.skill-card .skill-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.skill-card .skill-head span { font-weight: 600; font-size: .98rem; }
+.skill-card .skill-head small {
+  color: var(--muted); font-size: .74rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .4px; white-space: nowrap;
+}
+.skill-card .skill-desc { color: var(--muted); font-size: .9rem; margin: 4px 0 0; }
+
+/* ===== KARYA ===== */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.card:hover { border-color: var(--line-2); box-shadow: 0 2px 6px rgba(15, 23, 42, .08); }
+.card-thumb { aspect-ratio: 16/10; background: var(--surface-2); overflow: hidden; border-bottom: 1px solid var(--line); }
+.card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.card-thumb .noimg { width: 100%; height: 100%; display: grid; place-items: center; color: var(--muted); font-size: .85rem; }
+.card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+.card-body h3 { margin: 0 0 4px; font-size: 1.02rem; }
+.card-body .tahun { color: var(--muted); font-size: .78rem; font-weight: 600; }
+.card-body p { color: var(--muted); font-size: .9rem; margin: 8px 0 14px; flex: 1; }
+.card-body .link { font-weight: 600; font-size: .88rem; }
+
+/* ===== KONTAK ===== */
+.kontak-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
+.kontak-info { padding: 0; margin: 0; }
+.kontak-info li { list-style: none; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.kontak-info li strong { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+.kontak-info li .val { margin-top: 2px; }
+
+/* ===== FORM ===== */
+.field { margin-bottom: 16px; }
+label { display: block; font-weight: 600; font-size: .88rem; margin-bottom: 6px; }
+label small { font-weight: 400; color: var(--muted); }
+input, textarea, select {
+  width: 100%; padding: 10px 12px; font: inherit; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 8px;
+}
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--primary); outline-offset: 0; border-color: var(--primary); }
+textarea { min-height: 120px; resize: vertical; }
+input[type="file"] { padding: 8px; }
+
+/* ===== FLASH ===== */
+.flash { padding: 11px 14px; border-radius: 8px; margin-bottom: 18px; font-size: .9rem; border: 1px solid; }
+.flash.success { background: #f0fdf4; color: var(--success); border-color: #bbf7d0; }
+.flash.error { background: #fef2f2; color: var(--danger); border-color: #fecaca; }
+.flash.info { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+
+/* ===== FOOTER ===== */
+footer { background: var(--surface); border-top: 1px solid var(--line); padding: 26px 0; text-align: center; color: var(--muted); font-size: .88rem; }
+footer strong { color: var(--text); }
+footer .nim { color: var(--text); font-weight: 600; }
+footer p { margin: 4px 0; }
+footer .note { font-size: .8rem; }
+
+/* ===== LOGIN ===== */
+.login-wrap { min-height: 100vh; display: grid; place-items: center; padding: 20px; background: var(--surface-2); }
+.login-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 32px; width: min(400px, 100%); box-shadow: var(--shadow); }
+.login-card h1 { margin: 0 0 4px; font-size: 1.35rem; }
+.login-card p.sub { color: var(--muted); margin: 0 0 22px; font-size: .9rem; }
+
+/* ===== ADMIN ===== */
+.admin-body { background: var(--bg); }
+.admin-layout { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+.admin-side { background: var(--text); color: #cbd5e1; padding: 20px 14px; border-right: 1px solid #0b1220; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.admin-side h2 { color: #fff; font-size: 1rem; margin: 0 0 2px; padding: 0 8px; }
+.admin-side .who { color: #94a3b8; font-size: .8rem; margin-bottom: 18px; padding: 0 8px; }
+.admin-side nav a { display: block; color: #cbd5e1; padding: 9px 10px; border-radius: 6px; margin-bottom: 2px; font-size: .9rem; }
+.admin-side nav a:hover { background: rgba(255,255,255,.08); color: #fff; text-decoration: none; }
+.admin-side nav a.active { background: rgba(255,255,255,.14); color: #fff; }
+
+.admin-main { padding: 26px 30px; max-width: 1100px; }
+.admin-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 16px; flex-wrap: wrap; }
+.admin-head h1 { margin: 0; font-size: 1.35rem; }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; box-shadow: var(--shadow); margin-bottom: 20px; }
+.panel h3 { margin-top: 0; font-size: 1.05rem; }
+
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { background: var(--surface-2); font-size: .75rem; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); font-weight: 700; }
+tbody tr:hover td { background: var(--surface-2); }
+.thumb-sm { width: 56px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); }
+
+/* Dashboard stats — hanya angka nyata, tanpa kartu dekoratif berlebihan */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; box-shadow: var(--shadow); }
+.stat .num { font-size: 1.7rem; font-weight: 700; }
+.stat .lbl { color: var(--muted); font-size: .85rem; }
+
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mt-2 { margin-top: 16px; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 860px) {
+  .page-head .container { grid-template-columns: 1fr; gap: 24px; }
+  .avatar, .avatar-fallback { order: -1; margin-inline: 0; width: 130px; height: 130px; font-size: 2.2rem; }
+  .page-head h1 { font-size: 1.6rem; }
+  .skills-grid, .kontak-wrap, .grid-2 { grid-template-columns: 1fr; }
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: absolute; top: 60px; left: 0; right: 0;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+    flex-direction: column; gap: 0; padding: 8px; display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 11px 12px; }
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-side { position: static; height: auto; }
+  .admin-side nav { display: flex; flex-wrap: wrap; gap: 4px; }
+  .admin-main { padding: 20px 16px; }
+}
